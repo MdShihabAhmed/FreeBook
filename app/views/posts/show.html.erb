@@ -1,6 +1,16 @@
 <h3><%= @post.title %></h3>
 
 <p><%= @post.body %></p>
+<div>
+  <strong><%= pluralize(@post.likes.count, "Like") %></strong>
+    <div style="margin-top: 10px;">
+      <% if current_user.liked?(@post) %>
+        <%= button_to 'Unlike', unlike_post_path(@post), method: :delete %>
+      <% else %>
+        <%= button_to 'Like', like_post_path(@post), method: :post %>
+      <% end %>
+    </div>
+</div>
 <h4>Posted By: <%=link_to @user.username, user_path(@user)%></h4>
 <%if user_signed_in? && @user==current_user%>
   <h4> <%= link_to "Edit", edit_post_path(@post) %>

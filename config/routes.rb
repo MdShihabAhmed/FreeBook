@@ -13,5 +13,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
 
-  resources :posts
+  resources :posts do
+    member do
+      post "like", to: "likes#like"
+      delete "unlike", to: "likes#unlike"
+    end
+  end
 end
