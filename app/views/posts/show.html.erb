@@ -1,0 +1,12 @@
+<h3><%= @post.title %></h3>
+
+<p><%= @post.body %></p>
+<h4>Posted By: <%=link_to @user.username, user_path(@user)%></h4>
+<%if user_signed_in? && @user==current_user%>
+  <h4> <%= link_to "Edit", edit_post_path(@post) %>
+    <%= link_to "Delete", post_path(@post), data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?"
+    } %>
+<%end%>
+</h4>
