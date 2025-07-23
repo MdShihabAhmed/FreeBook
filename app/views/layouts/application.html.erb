@@ -26,6 +26,10 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <h1> <%=link_to "FreeBook", root_path%></h1>
+    <% if user_signed_in?%>
+      <h3> <%=link_to "Post Something..", new_post_path%></h3>
+    <% end %>
+
     <%= yield %>
     <h2><%=link_to "Feed", root_path%> <%=link_to "Users", users_path%></h2>
 
