@@ -65,4 +65,4 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-gem "image_processing", ">=1.2"
+gem "image_processing"
