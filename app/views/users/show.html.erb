@@ -6,12 +6,49 @@
   <% end %>
 </div>
 <h4> Username: <%= @user.username %> | Name: <%= @user.full_name %> | Email: <%= @user.email %> </h4>
-<%if @user.bio!="" %>
-  Bio: <%=@user.bio %>
+<p>
+  <%= link_to "Followers (#{@user.followers.count})", followers_user_path(@user) %> |
+  <%= link_to "Following (#{@user.following.count})", following_user_path(@user) %>
+</p>
+<%if @user.bio != " " %>
+  <h3>Bio: <%=@user.bio %></h3>
 <% end %>
 <%if @user == current_user %>
-    <h4><%=link_to "Edit Profile",  edit_user_registration_path%></h4>
-<%end %>
+  <h4><%=link_to "Edit Profile",  edit_user_registration_path%></h4>
+<% else %>
+  <div>
+    <div style="margin-top: 10px;">
+      <% sent_request = FollowRequest.find_by(sender: current_user, receiver: @user, accepted: false) %>
+      <% received_request = FollowRequest.find_by(sender: @user, receiver: current_user, accepted: false) %>
+      <% is_following = current_user.follows?(@user) %>
+      <% is_follower = @user.follows?(current_user) %>
+
+      
+      <% if is_follower %>
+        <p><%=@user.full_name %> follows you!</p>
+        <%= button_to 'Remove Follower', remove_follower_user_path(@user), method: :delete %>
+      <% end %>
+
+      <% if received_request %>
+        <p><%=@user.full_name %> has requested to follow you!</p>
+        <%= button_to 'Accept Request', accept_user_path(@user), method: :post %>
+        <%= button_to 'Decline Request', decline_user_path(@user), method: :post %>
+      <% end %>
+
+      <% if is_following %>
+        <p>You are following <%=@user.full_name %>!</p>
+        <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete %>
+      <% elsif sent_request %>
+        <p>Follow request sent.</p>
+        <%= button_to 'Cancel Request', cancel_request_user_path(@user), method: :delete %>
+      <% elsif is_follower && !is_following %>
+        <%= button_to 'Follow Back', follow_user_path(@user), method: :post %>
+      <% else %>
+        <%= button_to 'Follow', follow_user_path(@user), method: :post %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 <h2>Posts</h2>
 

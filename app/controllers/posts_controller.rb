@@ -7,7 +7,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = @post.user
-
   end
 
   def new
@@ -51,5 +50,4 @@ class PostsController < ApplicationController
   def post_params
     params.expect(post: [ :title, :body ])
   end
-
 end

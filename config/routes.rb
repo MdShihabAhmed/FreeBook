@@ -11,7 +11,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "posts#index"
   devise_for :users
-  resources :users
+  resources :users do
+    member do
+      post "follow", to: "follow_requests#follow"
+      post "accept", to: "follow_requests#accept"
+      post "decline", to: "follow_requests#decline"
+      delete "unfollow", to: "follow_requests#unfollow"
+      delete "remove_follower", to: "follow_requests#remove_follower"
+      delete "cancel_request", to: "follow_requests#cancel_request"
+    end
+    member do
+      get "followers", to: "users#followers"
+      get "following", to: "users#following"
+    end
+  end
 
   resources :posts do
     member do
