@@ -1,4 +1,4 @@
-<% if @sent_requests.any? %>
+<% if current_user==@user && @sent_requests.any? %>
   <strong>Pending Sent Requests</strong>
   <ul>
     <% @sent_requests.each do |follower| %>

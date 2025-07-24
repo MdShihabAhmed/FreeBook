@@ -1,4 +1,4 @@
-<% if @received_requests.any? %>
+<% if current_user==@user && @received_requests.any? %>
   <strong>Pending Follow Requests</strong>
   <ul>
     <% @received_requests.each do |follower| %>
