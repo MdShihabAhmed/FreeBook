@@ -23,6 +23,8 @@
 </div>
 <p>
     <h3>Comments:</h3>
-    <%= render @post.comments %>
-    <%= render "comments/form" %>
+    <div id="comments">
+      <%= render @post.comments.where(parent_id: nil).order(created_at: :desc) %>
+    </div>
+    <%= render "comments/form", post: @post, parent: nil%>
 </p>

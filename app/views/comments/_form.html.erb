@@ -1,7 +1,12 @@
-<%= form_with model: [ @post, @post.comments.build ] do |form| %>
-  <p>
-    <%= form.text_area :body %>
-    <%= form.submit "reply"%>
-  </p>
+<form action="<%= post_comments_path(post) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <% unless parent.nil? %>
+    <input type="hidden" name="comment[parent_id]" value="<%=  parent.id  %>">
+  <%  end %>
 
-<% end %>
+  <div>
+    <textarea name="comment[body]" rows="3" cols="20"></textarea>
+  </div>
+
+  <input type="submit" value="Reply">
+</form>
