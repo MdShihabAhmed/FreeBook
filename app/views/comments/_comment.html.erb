@@ -1,7 +1,4 @@
-<%= form_with model: [ user,post, post.comments.build ] do |form| %>
-  <p>
-    <%= form.text_area :body %>
-    <%= form.submit "Reply"%>
-  </p>
-
-<% end %>
+<p>
+  <%= comment.body %>
+  <small>by: <%= link_to comment.user.username, user_path(comment.user) %> at: <%= comment.created_at.in_time_zone("Asia/Dhaka").strftime("%l:%M %p, %a %b %e") %></small>
+</p>
