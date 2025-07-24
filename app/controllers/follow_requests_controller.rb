@@ -1,6 +1,6 @@
 class FollowRequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [ :follow, :accept, :decline, :unfollow, :remove_follower, :cancel_request ]
+  before_action :set_user
 
   def follow
     @follow_request = FollowRequest.new(sender: current_user, receiver: @user)

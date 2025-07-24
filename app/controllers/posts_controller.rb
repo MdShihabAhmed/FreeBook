@@ -1,7 +1,11 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @posts = Post.all.order(created_at: :desc)
+    feed_users_ids = current_user.following.each do |user|
+      user.id
+    end
+    feed_users_ids.push(current_user.id)
+    @posts = Post.where(user_id: feed_users_ids).order(created_at: :desc)
   end
 
   def show

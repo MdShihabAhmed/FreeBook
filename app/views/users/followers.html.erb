@@ -1,3 +1,12 @@
+<% if @received_requests.any? %>
+  <strong>Pending Follow Requests</strong>
+  <ul>
+    <% @received_requests.each do |follower| %>
+      <li><%= link_to follower.username, user_path(follower) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <h1>Followers of <%= @user.username %></h1>
 
 <% if @followers.any? %>
