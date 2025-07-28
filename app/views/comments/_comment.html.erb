@@ -5,7 +5,7 @@
     <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment} %>
   </div>
   <div class="sub-comment" style="margin-left: 25px;">
-    <%= render comment.replies.includes(:user).order(created_at: :desc) %>
+    <%= render comment.replies.includes(:user).order(created_at: :asc) %>
   </div>
 </article>
 

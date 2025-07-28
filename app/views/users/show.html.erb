@@ -51,7 +51,7 @@
 <% end %>
 
 <h2>Posts</h2>
-<% if is_following %>
+<% if @user==current_user || is_following %>
   <% @user.posts.each do |post| %>
     <li><h3><%=post.title%></h3>
       <p> <%= post.body %> </p>
