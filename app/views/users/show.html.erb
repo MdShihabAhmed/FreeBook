@@ -53,9 +53,11 @@
 <h2>Posts</h2>
 <% if @user==current_user || is_following %>
   <% @user.posts.each do |post| %>
-    <li><h3><%=post.title%></h3>
+    <li>
+      <h3><%=link_to post.title, post_path(post)%>
+        <small> at: <%= post.created_at.in_time_zone("Asia/Dhaka").strftime("%l:%M %p, %a %b %e") %></small>
+      </h3>
       <p> <%= post.body %> </p>
-      <%= link_to "Comments", post_path(post) %>
     </li><br>
   <% end %>
 <%else %>
